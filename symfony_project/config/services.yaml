@@ -1,0 +1,44 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+    App\Notifier\EmailNotifier:
+        arguments:
+            $mailer: '@mailer'
+            $recipient: 'admin@example.com'
+        tags: ['app.notifier']
+
+    App\Notifier\LogNotifier:
+        tags: ['app.notifier']
+
+    App\EventListener\ProductListener:
+        arguments:
+            $notifiers: !tagged_iterator app.notifier
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postUpdate }
+    App\EventListener\CategoryListener:
+        arguments:
+            $notifiers: !tagged_iterator app.notifier
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postUpdate }
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
