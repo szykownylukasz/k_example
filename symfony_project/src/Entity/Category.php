@@ -56,7 +56,7 @@ class Category
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Groups(['category:read'])]
-    private ?\DateTimeInterface $CreatedAt = null;
+    private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Groups(['category:read'])]
@@ -77,7 +77,7 @@ class Category
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {
-        $this->CreatedAt = new \DateTime();
+        $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }
 
@@ -106,12 +106,12 @@ class Category
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->CreatedAt;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $CreatedAt): static
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
-        $this->CreatedAt = $CreatedAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
