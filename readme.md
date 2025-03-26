@@ -13,14 +13,14 @@ A small programming sample using the Symfony API platform
 
    ```bash
    git clone https://github.com/szykownylukasz/k_example.git
-   cd nazwa-projektu
+   cd k_example
    ```
 2. **Running the docker:**
    docker-compose -p symfony_api up --build -d
 
-3. **Api visibitity:**
-   By default the API is available on port 81. When docker is started, composer packages are built, so when you first start it, you need to wait a moment for them to be built and once that happens, the server should work properly.
-   It shouldn't take more than a minute
+3. **Api visibility:**
+   By default the API is available on port 81. Port can be changed in docker-compose.yml file. When docker is started, composer packages are built, so when you first start it, you need to wait a moment for them to be built and once that happens, the server should work properly.
+   It shouldn't take more than 2 minutes.
    
 4. **API documentation is available at the link:**
 	http://localhost:81/api/docs
